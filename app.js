@@ -1,0 +1,1 @@
+const ENDPOINT="https://webhook.site/461bb6a1-98e8-4652-bd76-f6a9fab12a3c";document.querySelectorAll('[data-wa]').forEach(a=>a.addEventListener('click',()=>navigator.sendBeacon(ENDPOINT,new Blob([JSON.stringify({slug:"cantinella-cucina-italiana",secao:a.dataset.wa,ts:new Date().toISOString()})],{type:'application/json'}))));
