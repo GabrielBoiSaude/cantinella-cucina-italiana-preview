@@ -1,7 +1,18 @@
 const telemetryEndpoint = 'https://webhook.site/461bb6a1-98e8-4652-bd76-f6a9fab12a3c';
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const qaMode = new URLSearchParams(window.location.search).has('qa');
+if (qaMode) {
+  document.documentElement.style.scrollBehavior = 'auto';
+  if (window.location.hash) document.querySelector(window.location.hash)?.scrollIntoView();
+}
+if (!reduceMotion && !qaMode) document.documentElement.classList.add('motion-enabled');
 const toggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('#nav');
+const floatWa = document.querySelector('.float-wa');
+const hero = document.querySelector('.hero');
+if (floatWa && hero && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => floatWa.classList.toggle('is-active', !entry.isIntersecting), { threshold: 0.15 }).observe(hero);
+}
 
 toggle?.addEventListener('click', () => {
   const open = nav.classList.toggle('open');
